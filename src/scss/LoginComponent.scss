@@ -1,0 +1,113 @@
+html, body {
+  height: 94vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.card {
+  width: 25rem;
+  margin: 0 auto;
+  padding: 1.55rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
+  box-shadow: 0px 0px 3.75rem #0d9bbe77;
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="button"] {
+      width: 20rem;
+      padding: 0.625rem;
+      border: 0.0625rem solid #ccc;
+      border-radius: 0.3125rem;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      top: -0.625rem;
+      left: 0;
+      transform: scale(0.8);
+      font-size: 0.75rem;
+    }
+
+    input[type="button"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        background-color: #004296;
+      }
+    }
+
+    
+
+  }
+
+  p {
+    font-size: 0.875rem;
+    display: flex;
+    gap: 1.3rem;
+    justify-content: center;
+  }
+
+  .logInWithGoogle {
+    margin-top: 1.25rem;
+    justify-content: center;
+    display: flex;
+
+    .googleButton {
+      padding: 0.625rem;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #f2f2f2;
+      }
+
+      &:active {
+        background-color: #d9d9d9;
+      }
+    }
+  }
+
+  @media screen and (max-width: 48rem) {
+    width: 100%;
+    padding: 0.625rem;
+    box-sizing: border-box;
+
+    .login,
+    .logInWithGoogle {
+      padding: 0;
+    }
+
+    .login {
+      input[type="text"],
+      input[type="password"],
+      input[type="button"] {
+        font-size: 0.875rem;
+      }
+    }
+
+    .logInWithGoogle {
+      .googleButton {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
