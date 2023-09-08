@@ -34,7 +34,7 @@ function SignUpComponent() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="card">
         <span className="headding">Sign up</span>
         <div className="login">
