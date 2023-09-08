@@ -27,12 +27,17 @@ function HomeComponent() {
   const [updatedDescription, setUpdatedDescription] = useState(""); // State for updated description
 
   const [taskToUpdateId, setTaskToUpdateId] = useState(""); // State for the task ID to update
+  const [updatedMentorEmail, setMentorEmail] = useState(""); // State for updated mentor email
+  const [updatedMentorName, setMentorName] = useState(""); // State for updated mentor name
+  
 
   const handleAdd = async (e) => {
     try {
       await addDoc(collection(firestore, "tasks"), {
         title: updatedTitle,
         description: updatedDescription,
+        MentorName: updatedMentorName,
+        MentorEmail: updatedMentorEmail,
         created: Timestamp.now(),
         completed: false,
       });
@@ -73,6 +78,8 @@ function HomeComponent() {
       await updateDoc(taskDocRef, {
         title: updatedTitle,
         description: updatedDescription,
+        MentorName: updatedMentorName,
+        MentorEmail: updatedMentorEmail
       });
       toast.success("Task updated successfully!");
     } catch (err) {
@@ -111,8 +118,8 @@ function HomeComponent() {
 
   return (
     <div>
-      <Topbar/>
-      <div className="add-form">
+      <Topbar />
+      <form className="add-form">
         <input
           type="text"
           value={taskToUpdateId}
@@ -123,30 +130,54 @@ function HomeComponent() {
           type="text"
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
-          placeholder="Updated Title"
-          
+          placeholder="Course Title"
+          required
         />
         <input
           type="text"
           value={updatedDescription}
           onChange={(e) => setUpdatedDescription(e.target.value)}
-          placeholder="Updated Description"
-          
+          placeholder="Course Description"
+          required
         />
+
+        <input
+          type="text"
+          value={updatedMentorName}
+          onChange={(e) => setMentorName(e.target.value)}
+          placeholder="Mentor Name"
+          required
+
+        />
+
+        <input
+          type="email"
+          value={updatedMentorEmail}
+          onChange={(e) => setMentorEmail(e.target.value)}
+          placeholder="Mentor Email"
+          required
+
+        />
+
         <button className="add-button" type="submit" onClick={handleAdd}>
           Add
         </button>
-        <button className="update-button" type="submit" onClick={e => handleUpdate(e, taskToUpdateId)}>
+        <button
+          className="update-button"
+          type="submit"
+          onClick={(e) => handleUpdate(e, taskToUpdateId)}
+        >
           update
         </button>
-      </div>
+      </form>
 
       <div className="card-container">
         {task.map((tsk) => (
           <div className="card" key={tsk.id}>
             <div className="card-content">
-              <div className="card-title">{tsk.data.title}</div>
-              <div className="card-description">{tsk.data.description}</div>
+              <div className="card-title">title: {tsk.data.title}</div>
+              <div className="card-description">CD: {tsk.data.description}</div>
+              <div className="card-description">M Name:{tsk.data.MentorName}</div>
             </div>
             <div className="card-actions">
               <button
@@ -155,6 +186,8 @@ function HomeComponent() {
                   setTaskToUpdateId(tsk.id);
                   setUpdatedTitle(tsk.data.title);
                   setUpdatedDescription(tsk.data.description);
+                  setMentorName(tsk.data.MentorName);
+                  setMentorEmail(tsk.data.MentorEmail);
                 }}
               >
                 Update

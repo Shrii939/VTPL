@@ -22,6 +22,9 @@ function TopBar() {
           <a href="/">Home</a>
         </li>
         <li>
+          <a href="/ocr">OCR</a>
+        </li>
+        <li>
           <a href="/about">About</a>
         </li>
         <li>
