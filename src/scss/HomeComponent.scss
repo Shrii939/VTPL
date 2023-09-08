@@ -1,46 +1,148 @@
-// body {
-//     background: radial-gradient(ellipse at bottom, #022227 0%, #000000 100%);
-//      position: relative;
-//      height: 100vh;
-//      width: 100vw;
-//      margin: 0;
-//    }
-   
-   @import url('https://fonts.googleapis.com/css?family=Montserrat:900');
-//    body{
-//     background: radial-gradient(ellipse at bottom, #022227 0%, #000000 100%);
-//    }
+$base-font-size: 16px;
 
-   h1 {
-     margin: 0;
-     font-family: 'Montserrat', sans-serif;
-     font-size: 30vh;
-     letter-spacing: 1vw;
-     position: absolute;
-     top: 15vh;
-     text-align: center;
-     left: 50%;
-     transform: translateX(-50%);
-     color: white;
-     // background:url('https://i.pinimg.com/originals/9f/9c/c5/9f9cc5217bb04790e5fb852b665ca2ff.jpg');
-     background:url('https://thumbs.dreamstime.com/b/tropical-flower-pattern-seamless-flowers-blossom-flowers-nature-background-vector-illustration-61142748.jpg');
-      background-size: auto 200%;
-     background-clip: text;
-    -webkit-text-fill-color: transparent;
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
-     animation: shine 8s linear infinite;
-     &:nth-child(2) {
-       top: 50vh;
-     }
-     @keyframes shine {
-       from {
-         background-position: center 0;
-       }
-       to {
-         background-position: center 200%;
-       }
-     }
-   }
-   
-   
+// Variables
+$primary-color: #2ecc71;
+$secondary-color: #e74c3c;
+$card-bg-color: #f2f2f2;
+$card-border-color: #ddd;
+$button-bg-color: $primary-color;
+$button-text-color: #fff;
+$button-hover-bg-color: #27ae60;
+$button-hover-text-color: #fff;
+$input-bg-color: #fff;
+$input-border-color: #ccc;
+$input-focus-border-color: $primary-color;
+$input-text-color: #333;
+
+// Styles
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.25rem; // 20px / $base-font-size
+
+  input {
+    width: 18.75rem; // 300px / $base-font-size
+    height: 1.125rem; // 50px / $base-font-size
+    margin: 0.625rem; // 10px / $base-font-size
+    padding: 0.9375rem; // 15px / $base-font-size
+    border: 0.125rem solid $input-border-color; // 2px / $base-font-size
+    border-radius: 0.5rem; // 8px / $base-font-size
+    background-color: $input-bg-color;
+    color: $input-text-color;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $input-focus-border-color;
+    }
+  }
+
+  .add-button {
+    width: 9.375rem; // 150px / $base-font-size
+    height: 3.125rem; // 50px / $base-font-size
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    border: none;
+    border-radius: 0.5rem; // 8px / $base-font-size
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: $button-hover-bg-color;
+      transform: scale(1.05);
+    }
+  }
+
+  .update-button {
+    margin-top: 0.2rem;
+    width: 9.375rem; // 150px / $base-font-size
+    height: 3.125rem; // 50px / $base-font-size
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    border: none;
+    border-radius: 0.5rem; // 8px / $base-font-size
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: $button-hover-bg-color;
+      transform: scale(1.05);
+    }
+  }
+
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.875rem; // 30px / $base-font-size
+  justify-content: center;
+  padding: 1.25rem; // 20px / $base-font-size
+
+  .card {
+    width: 18.75rem; // 300px / $base-font-size
+    background-color: $card-bg-color;
+    border: 0.125rem solid $card-border-color; // 2px / $base-font-size
+    border-radius: 0.75rem; // 12px / $base-font-size
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    .card-content {
+      padding: 1.25rem; // 20px / $base-font-size
+    }
+
+    .card-title {
+      font-size: 1.25rem; // 20px / $base-font-size
+      font-weight: bold;
+      margin-bottom: 0.625rem; // 10px / $base-font-size
+    }
+
+    .card-description {
+      font-size: 1rem; // 16px / $base-font-size
+      color: #777;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.25rem; // 20px / $base-font-size
+
+      .update-button,
+      .delete-button {
+        width: 7.5rem; // 120px / $base-font-size
+        height: 2.5rem; // 40px / $base-font-size
+        border: none;
+        border-radius: 0.5rem; // 8px / $base-font-size
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      .update-button {
+        background-color: $primary-color;
+        color: $button-text-color;
+
+        &:hover {
+          background-color: $button-hover-bg-color;
+        }
+      }
+
+      .delete-button {
+        background-color: $secondary-color;
+        color: $button-text-color;
+
+        &:hover {
+          background-color: darken($secondary-color, 10%);
+        }
+      }
+    }
+  }
+}

@@ -34,7 +34,7 @@ function LoginComponent() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="card">
         <span className="headding">Login </span>
         <div className="login">
@@ -60,7 +60,7 @@ function LoginComponent() {
          
         </div>
         <div className="logInWithGoogle">
-          <GoogleButton className="googleButton" onClick={googlesignIn} />
+          <GoogleButton  className="googleButton" onClick={googlesignIn} />
         </div>
         <p className="signup">
           Don't have an account?{" "}
