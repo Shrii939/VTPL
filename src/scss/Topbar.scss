@@ -1,112 +1,92 @@
-/* topbar.scss */
+/* Topbar.scss */
 
-// Variables
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
-$font-color: #fff;
-$border-radius: 5px;
-$animation-duration: 0.5s;
+/* Keyframe animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-// Top Bar Styles
+/* TopBar component styles */
 .top-bar {
-  background-color: $primary-color;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #240088;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  animation: slideInDown $animation-duration ease-in-out;
+  padding: 1rem 10rem;
+  animation: fadeIn 0.5s ease-in-out; /* Apply fadeIn animation to .top-bar */
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
+.top-bar__logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  animation: fadeIn 0.5s ease-in-out; /* Apply fadeIn animation to .top-bar__logo */
 
-    img {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    span {
-      font-size: 24px;
-      font-weight: bold;
-      color: $font-color;
-    }
+  span {
+    margin-left: 10px;
   }
+}
 
-  .search-bar {
-    input[type="text"] {
-      padding: 8px;
-      border: none;
-      border-radius: $border-radius;
-      margin-right: 10px;
-      font-size: 16px;
-      width: 200px;
-      color: $primary-color;
-    }
+.top-bar__user-profile {
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out; /* Apply fadeIn animation to .top-bar__user-profile */
 
-    button {
-      background-color: $secondary-color;
-      border: none;
-      border-radius: $border-radius;
-      padding: 8px 16px;
-      font-size: 16px;
-      color: $font-color;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+  span {
+    margin-left: 10px;
+  }
+}
+
+.top-bar__nav-menu {
+  margin: 0 0.6rem 0 2.7rem;
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+
+  li {
+    margin-right: 20px;
+
+    a {
+      text-decoration: none;
+      color: #fff;
 
       &:hover {
-        background-color: darken($secondary-color, 10%);
+        text-decoration: underline;
       }
     }
   }
+}
 
-  .user-profile {
-    display: flex;
-    align-items: center;
+.top-bar__search-bar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 3rem;
 
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    span {
-      font-size: 18px;
-      font-weight: bold;
-      color: $font-color;
-    }
+  input[type="text"] {
+    padding: 5px;
+    border: 1px solid #fff;
+    border-radius: 5px;
   }
 
-  .nav-menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  button {
+    margin-left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 
-    li {
-      display: inline;
-      margin-right: 20px;
-
-      a {
-        text-decoration: none;
-        color: $font-color;
-        font-size: 18px;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: $secondary-color;
-        }
-      }
-    }
-  }
-
-  @keyframes slideInDown {
-    from {
-      transform: translateY(-100%);
-    }
-    to {
-      transform: translateY(0);
+    &:hover {
+      background-color: #0056b3;
     }
   }
 }

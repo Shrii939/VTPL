@@ -1,25 +1,38 @@
-import React from "react";
-import "../../../scss/Topbar.scss";
+import React, { useEffect, useState } from "react";
+import "../../../scss/Topbar.scss"; // Import the SCSS file
+import { auth } from "../../../firebaseConfig";
 
 function TopBar() {
-  // Dummy user data for the profile feature
-  const user = {
-    name: "John Doe",
-    avatar: "/avatar.jpg", // Replace with the actual path to the user's avatar
-  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Add Firebase Authentication listener to get the currently signed-in user
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        setUser(user);
+      } else {
+        // User is signed out
+        setUser(null);
+      }
+    });
+
+    // Unsubscribe from the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="top-bar">
-      <div className="logo">
+      <div className="top-bar__logo">
         {/* <img src="/logo.png" alt="Logo" /> */}
         <span>My Website</span>
       </div>
-      <div className="user-profile">
-        {/* <img src={user.avatar} alt={user.name} /> */}
-      </div>
-      <ul className="nav-menu">
+      <ul className="top-bar__nav-menu">
         <li>
           <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/ocr">OCR</a>
         </li>
         <li>
           <a href="/about">About</a>
@@ -32,11 +45,14 @@ function TopBar() {
         </li>
         <li></li>
       </ul>
-      <div className="search-bar">
+      <div className="top-bar__search-bar">
         <input type="text" placeholder="Search..." />
         <button>Search</button>
       </div>
-      <span>{user.name}</span>
+      <div className="top-bar__user-profile">
+        {/* Display the user's email if they are signed in */}
+        <span>{user ? user.email : "Guest"}</span>
+      </div>
     </div>
   );
 }
