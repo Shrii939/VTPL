@@ -25,7 +25,7 @@ function TopBar() {
     <div className="top-bar">
       <div className="top-bar__logo">
         {/* <img src="/logo.png" alt="Logo" /> */}
-        <span>My Website</span>
+        <span>My Course</span>
       </div>
       <ul className="top-bar__nav-menu">
         <li>

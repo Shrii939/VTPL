@@ -5,6 +5,11 @@ import Topbar from "./common/TopBar/Topbar";
 import Card from "./common/Card/Card";
 import Task from "./common/Task/Task";
 
+import { AiOutlineEdit } from "react-icons/ai";
+import { FiTrash2 } from "react-icons/fi";
+
+import { IconContext } from "react-icons";
+
 import {
   Timestamp,
   addDoc,
@@ -35,7 +40,12 @@ function HomeComponent() {
   const handleAdd = async (e) => {
     e.preventDefault();
 
-    if (!updatedTitle || !updatedDescription || !updatedMentorName || !updatedMentorEmail) {
+    if (
+      !updatedTitle ||
+      !updatedDescription ||
+      !updatedMentorName ||
+      !updatedMentorEmail
+    ) {
       setAddError("All fields are required.");
       return;
     }
@@ -82,7 +92,12 @@ function HomeComponent() {
   const handleUpdate = async (e, taskIdToUpdate) => {
     e.preventDefault();
 
-    if (!updatedTitle || !updatedDescription || !updatedMentorName || !updatedMentorEmail) {
+    if (
+      !updatedTitle ||
+      !updatedDescription ||
+      !updatedMentorName ||
+      !updatedMentorEmail
+    ) {
       setUpdateError("All fields are required.");
       return;
     }
@@ -189,30 +204,45 @@ function HomeComponent() {
         {task.map((tsk) => (
           <div className="card" key={tsk.id}>
             <div className="card-content">
-              <div className="card-title">Title: {tsk.data.title}</div>
-              <div className="card-description">Description: {tsk.data.description}</div>
-              <div className="card-description">Mentor Name: {tsk.data.MentorName}</div>
-              <div className="card-description">Mentor Email: {tsk.data.MentorEmail}</div>
+              <div className="card-title"> {tsk.data.title}</div>
+              <div className="card-description">
+                Description: {tsk.data.description}
+              </div>
+              <div className="card-description">
+                Mentor Name: {tsk.data.MentorName}
+              </div>
+              <div className="card-description">
+                Mentor Email: {tsk.data.MentorEmail}
+              </div>
             </div>
             <div className="card-actions">
-              <button
-                className="update-button"
-                onClick={(e) => {
-                  setTaskToUpdateId(tsk.id);
-                  setUpdatedTitle(tsk.data.title);
-                  setUpdatedDescription(tsk.data.description);
-                  setMentorName(tsk.data.MentorName);
-                  setMentorEmail(tsk.data.MentorEmail);
-                }}
+              <IconContext.Provider
+                value={{ color:'blue',className: "global-class-name", size: "1.5rem", style: { cursor: "pointer" } }}
               >
-                Update
-              </button>
-              <button
-                className="delete-button"
-                onClick={(e) => handleDelete(e, tsk.id)}
+                <AiOutlineEdit
+                  className="update-button"
+                  onClick={(e) => {
+                    setTaskToUpdateId(tsk.id);
+                    setUpdatedTitle(tsk.data.title);
+                    setUpdatedDescription(tsk.data.description);
+                    setMentorName(tsk.data.MentorName);
+                    setMentorEmail(tsk.data.MentorEmail);
+                    
+                  }}
+                >
+                  Update
+                </AiOutlineEdit>
+                </IconContext.Provider>
+                <IconContext.Provider
+                value={{ color:'red',className: "global-class-name", size: "1.5rem", style: { cursor: "pointer" } }}
               >
-                Delete
-              </button>
+                <FiTrash2
+                  className="delete-button"
+                  onClick={(e) => handleDelete(e, tsk.id)}
+                >
+                  Delete
+                </FiTrash2>
+                </IconContext.Provider>
             </div>
           </div>
         ))}
