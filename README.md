@@ -116,3 +116,76 @@ That's it! You've successfully configured a React project with Vite. Happy codin
 
 
 You can save this content in a `.md` file (e.g., `README.md`) in your project directory.
+
+## Application state
+
+# Project Screenshots
+
+<!--
+Login Page section:
+
+Shows sample screenshots of the login page with different login options like email/password, Google login etc. 
+
+Includes the following screenshot images:
+
+- Login_Page.png - Shows login screen with email/password and Google login buttons
+- GoogleLogin.png - Shows Google account selection popup for login  
+- SignUp_page.png - Shows signup form to create a new account
+-->
+
+## Login Page
+
+Bunch of options to choose from
+
+![LoginPage](./Screenshots/Login_Page.png)
+
+![LoginPage Google](./Screenshots/GoogleLogin.png)
+
+
+<!--
+SignUp page section:
+
+Includes SignUp_page.png screenshot showing the signup form with fields like name, email, password etc. 
+-->
+
+## SignUp page
+
+![SignUp](./Screenshots/SignUp_page.png)
+
+
+<!--
+Home Page section: 
+
+Includes Courses.png screenshot showing the homepage with available courses listed.
+-->
+
+## Home Page
+
+![Home](./Screenshots/Courses.png)
+
+
+<!--
+OCR application section:
+
+Includes OCR.png screenshot showing the OCR input form. 
+-->
+
+## OCR application
+
+![OCR](./Screenshots/OCR.png)
+
+
+<!-- 
+OCR after uploading image section:
+
+Includes OCR_After.png screenshot showing OCR output text after uploading an image.
+-->
+
+## OCR after uploading image
+
+![OCR After](./Screenshots/OCR_After.png)
+
+
+
+
+
