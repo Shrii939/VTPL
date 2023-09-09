@@ -1,0 +1,99 @@
+$spacing-unit: 1rem;
+$border-radius: 0.5rem;
+$card-background: #fff;
+$primary-color: #007bff;
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Center vertically */
+}
+
+.ocr-card {
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+  padding: $spacing-unit * 2;
+  border: 1px solid #ccc;
+  border-radius: $border-radius + 1.0rem;
+  background-color: $card-background;
+  box-shadow: 0 5px 41px rgba(50, 145, 253, 0.466);
+  text-align: center;
+  transform: scale(1);
+  transition: transform 0.2s ease-in-out;
+
+  &.loading {
+    transform: scale(0.95);
+  }
+
+  .ocr-heading {
+    font-size: 1.5rem;
+    margin-bottom: $spacing-unit * 2;
+  }
+
+  .ocr-content {
+    .ocr-input-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: $spacing-unit * 2;
+
+      .ocr-file-input {
+        padding: $spacing-unit;
+        border: 1px solid #ccc;
+        border-radius: $border-radius;
+        margin-bottom: $spacing-unit;
+        width: 100%;
+      }
+
+      .ocr-convert-button {
+        padding: $spacing-unit;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        width: 100%;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    .ocr-progress-text {
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .ocr-text-output {
+      width: 90%;
+      min-height: 200px;
+      padding: $spacing-unit;
+      border: 1px solid #ccc;
+      border-radius: $border-radius;
+      margin-top: $spacing-unit;
+    }
+  }
+
+  .ocr-back-link {
+    display: block;
+    margin-top: $spacing-unit * 2;
+    font-size: 1rem;
+    color: $primary-color;
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.ocr-card.loading .ocr-progress-text,
+.ocr-card.loading .ocr-back-link {
+  opacity: 1;
+}

@@ -1,72 +1,90 @@
-import { data } from "autoprefixer";
 import React, { useState } from "react";
 import Tesseract from "tesseract.js";
+import "../scss/OCRComponent.scss"; // Import the SCSS stylesheet
+import TopBar from "./common/TopBar/Topbar";
 
 function OCRComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
-  const [progress, setprogress] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isRequiredError, setIsRequiredError] = useState(false);
 
   const handleClick = async () => {
     setIsLoading(true);
-    Tesseract.recognize(image, "eng", {
+    try {
+      const result = await Tesseract.recognize(image, "eng", {
         logger: (m) => {
-                if(m.status === "recognizing text") {
-                    setprogress(parseInt(m.progress*100));
-                }
+          if (m.status === "recognizing text") {
+            setProgress(parseInt(m.progress * 100));
+          }
         },
-    }).then(({data: { text }}) => {
-        setText(text);
-        setIsLoading(false);
-    })
+      });
+      setText(result.data.text);
+    } catch (error) {
+      console.error("Error while recognizing text:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (image === "") {
+      setIsRequiredError(true);
+    } else {
+      setIsRequiredError(false);
+      handleClick();
+    }
   };
 
   return (
-    <div>
-      <h1>Image to Text</h1>
+    <>
+    <TopBar />
+    <div className="center-container">
+      <div className={`ocr-card ${isLoading ? "loading" : ""}`}>
+        <h1 className="ocr-heading">Image to Text</h1>
+        <div className="ocr-content">
+          <form className="ocr-input-section" onSubmit={handleFormSubmit}>
+            <input
+              type="file"
+              className="ocr-file-input"
+              onChange={handleImageUpload}
+              required
+              />
+            {isRequiredError && (
+              <p className="ocr-required-error">Please select an image.</p>
+              )}
+            <button className="ocr-convert-button" type="submit">
+              Convert
+            </button>
+          </form>
 
-      {!isLoading && !text && (
-        <>
-          <input
-            type="file"
-            className="form-control"
-            onChange={(e) => {
-              setImage(URL.createObjectURL(e.target.files[0]));
-            }}
-            placeholder="Upload the file"
-          />
+          {isLoading && (
+              <div className="ocr-loading">
+              <p className="ocr-progress-text">Converting... {progress}%</p>
+              <div className="loader"></div>
+            </div>
+          )}
 
-          <input
-            type="button"
-            className="form-control"
-            value="Convert"
-            onClick={handleClick}
-          />
-        </>
-      )}
-
-      {isLoading && (
-        <>
-          <p className="text-center">converting...{progress}%</p>
-        </>
-      )}
-
-      {!isLoading && text && (
-        <>
           <textarea
-            name="form-control"
-            id="form"
-            cols="30"
+            className="ocr-text-output"
             value={text}
-            rows="15"
-            onChange={() => {
-              setText(e.target.value);
+            onChange={(e) => {
+                setText(e.target.value);
             }}
-          ></textarea>
-        </>
-      )}
+            ></textarea>
+        </div>
+        <a href="/" className="ocr-back-link">
+          Back
+        </a>
+      </div>
     </div>
+            </>
   );
 }
 
