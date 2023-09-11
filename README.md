@@ -7,6 +7,8 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+fireabse link
+
 # React Project Configuration with Vite
 
 This document provides step-by-step instructions on how to configure a React project using the Vite build tool. Vite is a fast and lightweight development tool that makes it easy to set up modern web projects.
@@ -117,6 +119,10 @@ That's it! You've successfully configured a React project with Vite. Happy codin
 
 You can save this content in a `.md` file (e.g., `README.md`) in your project directory.
 
+
+
+
+
 ## Application state
 
 # Project Screenshots
@@ -159,10 +165,13 @@ Home Page section:
 Includes Courses.png screenshot showing the homepage with available courses listed.
 -->
 
-## Home Page
+# Task 2
+## CRUD Page
 
-![Home](./Screenshots/Courses.png)
+![Home](./Screenshots/Home.png)
+![Home](./Screenshots/Add_updateCourse.png)
 
+![Add](./Screenshots/courses.png)
 
 <!--
 OCR application section:
@@ -170,9 +179,10 @@ OCR application section:
 Includes OCR.png screenshot showing the OCR input form. 
 -->
 
+# Task 3
 ## OCR application
 
-![OCR](./Screenshots/OCR.png)
+![OCR](./Screenshots/ocr.png)
 
 
 <!-- 
@@ -183,7 +193,7 @@ Includes OCR_After.png screenshot showing OCR output text after uploading an ima
 
 ## OCR after uploading image
 
-![OCR After](./Screenshots/OCR_After.png)
+![OCR After](./Screenshots/ocrAfter.png)
 
 
 

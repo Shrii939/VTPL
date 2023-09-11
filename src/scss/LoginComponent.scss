@@ -115,11 +115,13 @@
 // Variables for reusability
 $primary-color: #007bff; // Define your primary color here
 
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+
 
   .card {
     background-color: #fff;

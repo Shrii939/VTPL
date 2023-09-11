@@ -1,5 +1,8 @@
 /* Topbar.scss */
 
+/* Define a variable for the minimum width at which the top bar should be hidden */
+$minimizedWidth: 60%; // You can adjust this value as needed
+
 /* Keyframe animations */
 @keyframes fadeIn {
   0% {
@@ -12,15 +15,24 @@
   }
 }
 
+body{
+  background-color: #fff;
+}
+
 /* TopBar component styles */
 .top-bar {
-  background-color: #240088;
-  color: #fff;
+  background-color: #ffffff00;
+  color: #000000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 10rem;
   animation: fadeIn 0.5s ease-in-out; /* Apply fadeIn animation to .top-bar */
+
+  /* Apply the hidden style when the screen width is below the specified threshold */
+  @media (max-width: $minimizedWidth) {
+    display: none;
+  }
 }
 
 .top-bar__logo {
@@ -50,12 +62,13 @@
   display: flex;
   padding: 0;
 
+
   li {
     margin-right: 20px;
 
     a {
       text-decoration: none;
-      color: #fff;
+      color: #000000;
 
       &:hover {
         text-decoration: underline;
@@ -71,9 +84,9 @@
   margin-right: 3rem;
 
   input[type="text"] {
-    padding: 5px;
-    border: 1px solid #fff;
+    border: 1px solid #116401;
     border-radius: 5px;
+    padding: 0.4rem;
   }
 
   button {
@@ -81,12 +94,38 @@
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    // padding: 5px 10px;
+    padding: 0.4rem;
     border-radius: 5px;
     cursor: pointer;
 
     &:hover {
       background-color: #0056b3;
     }
+  }
+}
+
+@media screen and (max-width: 1244px) {
+    .top-bar__nav-menu{
+      display: none;
+    }  
+    .top-bar__search-bar{
+      display: none;
+    }
+    .top-bar__user-profile{
+      display: none;
+    }
+}
+
+@media screen and (max-width: 850px) {
+  .banner-image{
+    height: 25rem;
+    width: 30rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .banner-image{
+    display: none;
   }
 }
