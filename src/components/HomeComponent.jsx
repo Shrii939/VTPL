@@ -4,8 +4,8 @@ import LogoutComponent from "./LogoutComponent";
 import Topbar from "./common/TopBar/Topbar";
 import Card from "./common/Card/Card";
 import Task from "./common/Task/Task";
-
-import { AiOutlineEdit } from "react-icons/ai";
+import Image from "../../public/Untitled design.png";
+import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 
 import { IconContext } from "react-icons";
@@ -36,6 +36,7 @@ function HomeComponent() {
   const [updatedMentorName, setMentorName] = useState(""); // State for updated mentor name
   const [addError, setAddError] = useState(""); // State for add error
   const [updateError, setUpdateError] = useState(""); // State for update error
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -61,8 +62,9 @@ function HomeComponent() {
       });
 
       onClose();
+      toast.success("Added New Course to the list")
     } catch (err) {
-      alert(err);
+      toast.success("Added New Course to the list")
     }
 
     setUpdatedTitle("");
@@ -153,53 +155,96 @@ function HomeComponent() {
   return (
     <div>
       <Topbar />
-      <form className="add-form">
-        <div className="form-column">
-          <input
-            type="text"
-            value={updatedTitle}
-            onChange={(e) => setUpdatedTitle(e.target.value)}
-            placeholder="Course Title"
-            required
-          />
-          <input
-            type="text"
-            value={updatedDescription}
-            onChange={(e) => setUpdatedDescription(e.target.value)}
-            placeholder="Course Description"
-            required
-          />
-          <input
-            type="text"
-            value={updatedMentorName}
-            onChange={(e) => setMentorName(e.target.value)}
-            placeholder="Mentor Name"
-            required
-          />
-          <input
-            type="email"
-            value={updatedMentorEmail}
-            onChange={(e) => setMentorEmail(e.target.value)}
-            placeholder="Mentor Email"
-            required
-          />
-        </div>
-        <div className="form-row">
-          <button className="add-button" type="submit" onClick={handleAdd}>
-            Add
-          </button>
-          <button
-            className="update-button"
-            type="submit"
-            onClick={(e) => handleUpdate(e, taskToUpdateId)}
-          >
-            Update
+      <div className="banner">
+        <div className="banner-content">
+          <h1>Welcome to MyCourse</h1>
+          <h3>
+            Streamline Your Video Content Creation and Sharing Experience as an
+            Author
+          </h3>
+          <p>
+            A platform designed to empower authors by simplifying the uploading
+            and sharing of their video content, enhancing their online presence
+            and engagement with readers
+          </p>
+          <button className="add-now" onClick={() => setIsFormVisible(true)}>
+            Add now
           </button>
         </div>
-        {addError && <div className="error">{addError}</div>}
-        {updateError && <div className="error">{updateError}</div>}
-      </form>
+        <img src={Image} alt="mentor banner" className="banner-image" />
+      </div>
 
+      {isFormVisible && (
+        <div className={`popup ${isFormVisible ? "popup-visible" : ""}`}>
+          <form className="add-form">
+            <div className="form-column">
+              <div className="popup-close-container">
+                <IconContext.Provider
+                  value={{
+                    color: "red",
+                    className: "global-class-name",
+                    size: "1.5rem",
+
+                    style: { cursor: "pointer" },
+                  }}
+                >
+                  <AiOutlineClose
+                    onClick={() => setIsFormVisible(false)}
+                  ></AiOutlineClose>
+                </IconContext.Provider>
+              </div>
+              <input
+                type="text"
+                value={updatedTitle}
+                onChange={(e) => setUpdatedTitle(e.target.value)}
+                placeholder="Course Title"
+                id="title"
+                required
+              />
+
+              <input
+                type="text"
+                value={updatedDescription}
+                onChange={(e) => setUpdatedDescription(e.target.value)}
+                placeholder="Course Description"
+                required
+              />
+              <input
+                type="text"
+                value={updatedMentorName}
+                onChange={(e) => setMentorName(e.target.value)}
+                placeholder="Mentor Name"
+                required
+              />
+              <input
+                type="email"
+                value={updatedMentorEmail}
+                onChange={(e) => setMentorEmail(e.target.value)}
+                placeholder="Mentor Email"
+                required
+              />
+            </div>
+            <div className="form-row">
+              <button className="add-button" type="submit" onClick={handleAdd}>
+                Add
+              </button>
+              <button
+                className="update-button"
+                type="submit"
+                onClick={(e) => handleUpdate(e, taskToUpdateId)}
+              >
+                Update
+              </button>
+            </div>
+            {addError && <div className="error">{addError}</div>}
+            {updateError && <div className="error">{updateError}</div>}
+          </form>
+        </div>
+      )}
+
+      <div className="course">
+        <h1>Courses</h1>
+      </div>
       <div className="card-container">
         {task.map((tsk) => (
           <div className="card" key={tsk.id}>
@@ -217,24 +262,34 @@ function HomeComponent() {
             </div>
             <div className="card-actions">
               <IconContext.Provider
-                value={{ color:'blue',className: "global-class-name", size: "1.5rem", style: { cursor: "pointer" } }}
+                value={{
+                  color: "blue",
+                  className: "global-class-name",
+                  size: "1.5rem",
+                  style: { cursor: "pointer" },
+                }}
               >
                 <AiOutlineEdit
                   className="update-button"
                   onClick={(e) => {
+                    setIsFormVisible(true);
                     setTaskToUpdateId(tsk.id);
                     setUpdatedTitle(tsk.data.title);
                     setUpdatedDescription(tsk.data.description);
                     setMentorName(tsk.data.MentorName);
                     setMentorEmail(tsk.data.MentorEmail);
-                    
                   }}
                 >
                   Update
                 </AiOutlineEdit>
-                </IconContext.Provider>
-                <IconContext.Provider
-                value={{ color:'red',className: "global-class-name", size: "1.5rem", style: { cursor: "pointer" } }}
+              </IconContext.Provider>
+              <IconContext.Provider
+                value={{
+                  color: "red",
+                  className: "global-class-name",
+                  size: "1.5rem",
+                  style: { cursor: "pointer" },
+                }}
               >
                 <FiTrash2
                   className="delete-button"
@@ -242,7 +297,7 @@ function HomeComponent() {
                 >
                   Delete
                 </FiTrash2>
-                </IconContext.Provider>
+              </IconContext.Provider>
             </div>
           </div>
         ))}
