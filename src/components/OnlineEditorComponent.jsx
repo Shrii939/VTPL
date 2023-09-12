@@ -2,33 +2,14 @@ import Editor from "@monaco-editor/react";
 import React, { useEffect, useState } from "react";
 import "../scss/OnlineEditorComponent.scss"; // Import the SCSS file
 
-
 function OnlineEditorComponent() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState("" );
   const [file, setFile] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [output, setOutput] = useState("");
 
   const options = {
-    autoIndent: "full",
-    contextmenu: true,
-    fontFamily: "monospace",
-    fontSize: 13,
-    lineHeight: 24,
-    hideCursorInOverviewRuler: true,
-    matchBrackets: "always",
-    minimap: {
-      enabled: true,
-    },
-    scrollbar: {
-      horizontalSliderSize: 4,
-      verticalSliderSize: 18,
-    },
-    selectOnLineNumbers: true,
-    roundedSelection: false,
-    readOnly: false,
-    cursorStyle: "line",
-    automaticLayout: true,
+
   };
 
   useEffect(() => {
@@ -50,11 +31,6 @@ function OnlineEditorComponent() {
     };
   }, []);
 
-  const handleFileChange = (event) => {
-    if (event.target.files[0]) {
-      setFile(event.target.files[0]);
-    }
-  };
 
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
@@ -73,26 +49,15 @@ function OnlineEditorComponent() {
   };
 
   const handleRunCode = () => {
-    try {
-      // Use eval to execute JavaScript code (be cautious with this approach)
-      let result = eval(code);
-  
-      if (typeof result !== 'undefined') {
-        // Set the output to the result (you can format this as needed)
-        setOutput(result.toString());
-      } else {
-        // Handle the case where the result is undefined
-        setOutput("Result is undefined.");
-      }
-    } catch (error) {
-      // Handle and display any errors
-      setOutput(`Error: ${error.message}`);
-    }
+    const parser = new DOMParser();
+    const out = parser.parseFromString(code, "text/html");
+    const div = document.getElementById('outout')
+    div.innerHTML = out.documentElement.innerHTML
+    
+    
   };
-  
 
-  console.log(code)
-  console.log(selectedLanguage)
+
   return (
     <div className="online-editor">
       <div className="left">
@@ -114,7 +79,7 @@ function OnlineEditorComponent() {
         </div>
         <div className="output-container">
           <h3>Output:</h3>
-          <pre>{output}</pre>
+          <div id="outout"></div>
         </div>
       </div>
 
@@ -122,7 +87,9 @@ function OnlineEditorComponent() {
         <div className="titlebar">
           <div className="language-input">
             <select value={selectedLanguage} onChange={handleLanguageChange}>
-              <option value="javascript" defaultChecked>JavaScript</option>
+              <option value="javascript" defaultChecked>
+                JavaScript
+              </option>
               <option value="css">CSS</option>
               <option value="html">HTML</option>
               <option value="python">Python</option>
@@ -134,7 +101,9 @@ function OnlineEditorComponent() {
           <button className="save-button" onClick={handleSave}>
             Save
           </button>
-          <button className="run-button" onClick={handleRunCode}>Run Code</button>
+          <button className="run-button" onClick={handleRunCode}>
+            Run Code
+          </button>
           {/* Add other options here */}
         </div>
         <div className="editor-container" onContextMenu={handleContextMenu}>
@@ -142,11 +111,11 @@ function OnlineEditorComponent() {
             id="nopaste"
             onKeyDown={handleEditorPaste}
             height="90vh"
-            options={options}
+            
             theme="vs-dark"
             defaultLanguage="javascript"
             value={code}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e) => setCode(e)}
           />
         </div>
       </div>
