@@ -1,0 +1,76 @@
+// OnlineEditorComponent.scss
+
+.online-editor {
+    display: flex;
+    justify-content: space-between;
+  
+    .left {
+      width: 30%;
+      padding: 4rem;
+      box-sizing: border-box;
+    }
+  
+    .right {
+      width: 70%;
+      padding: 20px;
+      box-sizing: border-box;
+      color: white;
+    }
+  
+    .doc-session {
+      .monaco-editor {
+        height: 400px; // Adjust the height as needed
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        color: white;
+      }
+    }
+  
+    .titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      .language-input {
+        select {
+          padding: 10px;
+          font-size: 14px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-right: 10px;
+          background-color: #fff;
+        }
+      }
+  
+      .save-button
+      {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+
+      .run-button{
+        background-color: #00ff15;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #00b31ed7;
+        }
+      }
+    }
+  }
+  
