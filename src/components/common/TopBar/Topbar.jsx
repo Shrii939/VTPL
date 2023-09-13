@@ -41,6 +41,9 @@ function TopBar() {
           <a href="/services">Services</a>
         </li>
         <li>
+          <a href="/onlineEditor">Online Editor</a>
+        </li>
+        <li>
           <a href="/contact">Contact</a>
         </li>
         <li></li>
