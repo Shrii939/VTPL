@@ -4,7 +4,7 @@ import LogoutComponent from "./LogoutComponent";
 import Topbar from "./common/TopBar/Topbar";
 import Card from "./common/Card/Card";
 import Task from "./common/Task/Task";
-import Image from "../../public/Untitled design.png";
+import Image from "../assets/laptop.png";
 import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 
