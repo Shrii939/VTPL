@@ -5,13 +5,16 @@ import React from 'react';
 
 const MessageParser = ({ children, actions }) => {
   const parse = (message) => {
-    if (message.includes('hello') || message.includes('hi')) {
+
+    const lowerCaseMessage = message.toLowerCase();
+
+    if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
       actions.handleHello();
-    }else if(message.includes('bye')) {
+    }else if(lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye')|| lowerCaseMessage.includes('tata')) {
       actions.handleBye();
-    }else if(message.includes('help')) {
+    }else if(lowerCaseMessage.includes('help')) {
       actions.handleHelp();
-    } else if(message.includes('exit')){
+    } else if(lowerCaseMessage.includes('exit')){
       actions.handleExit();
     } else{
       actions.handleGeneral();
