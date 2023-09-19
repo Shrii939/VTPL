@@ -4,7 +4,7 @@ import LogIn from "../pages/LogIn";
 import SignUp from "../pages/SignUp";
 import OCR from "../pages/OCR";
 import OnlineEditor from "../pages/OnlineEditor";
-
+import PageComponent from "../components/PageComponent";
 
 export const routers = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ export const routers = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <Home/>
+        element: <PageComponent/>
     },
     {
         path: "/ocr",

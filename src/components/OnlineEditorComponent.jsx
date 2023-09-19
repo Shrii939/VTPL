@@ -1,71 +1,82 @@
 import Editor from "@monaco-editor/react";
 import React, { useEffect, useState } from "react";
 import "../scss/OnlineEditorComponent.scss"; // Import the SCSS file
+import { toast } from "react-toastify";
+import axios from "axios";
+import Home from "../pages/Home";
+import TopBar from "./common/TopBar/Topbar";
+
+const GitHub = () => axios.create({
+  baseURL: 'https://api.github.com/Shrii939',
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+  },
+});
 
 function OnlineEditorComponent() {
-  const [code, setCode] = useState("" );
-  const [file, setFile] = useState("");
+  const [code, setCode] = useState("");
+  const [count, setcount] = useState("0");
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [output, setOutput] = useState("");
 
   const options = {
-    "acceptSuggestionOnCommitCharacter": true,
-    "acceptSuggestionOnEnter": "on",
-    "accessibilitySupport": "auto",
-    "autoIndent": false,
-    "automaticLayout": true,
-    "codeLens": true,
-    "colorDecorators": true,
-    "contextmenu": true,
-    "cursorBlinking": "blink",
-    "cursorSmoothCaretAnimation": false,
-    "cursorStyle": "line",
-    "disableLayerHinting": false,
-    "disableMonospaceOptimizations": false,
-    "dragAndDrop": false,
-    "fixedOverflowWidgets": false,
-    "folding": true,
-    "foldingStrategy": "auto",
-    "fontLigatures": false,
-    "formatOnPaste": false,
-    "formatOnType": false,
-    "hideCursorInOverviewRuler": false,
-    "highlightActiveIndentGuide": true,
-    "links": true,
-    "mouseWheelZoom": false,
-    "multiCursorMergeOverlapping": true,
-    "multiCursorModifier": "alt",
-    "overviewRulerBorder": true,
-    "overviewRulerLanes": 2,
-    "quickSuggestions": true,
-    "quickSuggestionsDelay": 100,
-    "readOnly": false,
-    "renderControlCharacters": false,
-    "renderFinalNewline": true,
-    "renderIndentGuides": true,
-    "renderLineHighlight": "all",
-    "renderWhitespace": "none",
-    "revealHorizontalRightPadding": 30,
-    "roundedSelection": true,
-    "rulers": [],
-    "scrollBeyondLastColumn": 5,
-    "scrollBeyondLastLine": true,
-    "selectOnLineNumbers": true,
-    "selectionClipboard": true,
-    "selectionHighlight": true,
-    "showFoldingControls": "mouseover",
-    "smoothScrolling": false,
-    "suggestOnTriggerCharacters": true,
-    "wordBasedSuggestions": true,
-    "wordSeparators": "~!@#$%^&*()-=+[{]}|;:'\",.<>/?",
-    "wordWrap": "off",
-    "wordWrapBreakAfterCharacters": "\t})]?|&,;",
-    "wordWrapBreakBeforeCharacters": "{([+",
-    "wordWrapBreakObtrusiveCharacters": ".",
-    "wordWrapColumn": 80,
-    "wordWrapMinified": true,
-    "wrappingIndent": "none"
-  }
+    acceptSuggestionOnCommitCharacter: true,
+    acceptSuggestionOnEnter: "on",
+    accessibilitySupport: "auto",
+    autoIndent: false,
+    automaticLayout: true,
+    codeLens: true,
+    colorDecorators: true,
+    contextmenu: true,
+    cursorBlinking: "blink",
+    cursorSmoothCaretAnimation: false,
+    cursorStyle: "line",
+    disableLayerHinting: false,
+    disableMonospaceOptimizations: false,
+    dragAndDrop: false,
+    fixedOverflowWidgets: false,
+    folding: true,
+    foldingStrategy: "auto",
+    fontLigatures: false,
+    formatOnPaste: false,
+    formatOnType: false,
+    hideCursorInOverviewRuler: false,
+    highlightActiveIndentGuide: true,
+    links: true,
+    mouseWheelZoom: false,
+    multiCursorMergeOverlapping: true,
+    multiCursorModifier: "alt",
+    overviewRulerBorder: true,
+    overviewRulerLanes: 2,
+    quickSuggestions: true,
+    quickSuggestionsDelay: 100,
+    readOnly: false,
+    renderControlCharacters: false,
+    renderFinalNewline: true,
+    renderIndentGuides: true,
+    renderLineHighlight: "all",
+    renderWhitespace: "none",
+    revealHorizontalRightPadding: 30,
+    roundedSelection: true,
+    rulers: [],
+    scrollBeyondLastColumn: 5,
+    scrollBeyondLastLine: true,
+    selectOnLineNumbers: true,
+    selectionClipboard: true,
+    selectionHighlight: true,
+    showFoldingControls: "mouseover",
+    smoothScrolling: false,
+    suggestOnTriggerCharacters: true,
+    wordBasedSuggestions: true,
+    wordSeparators: "~!@#$%^&*()-=+[{]}|;:'\",.<>/?",
+    wordWrap: "off",
+    wordWrapBreakAfterCharacters: "\t})]?|&,;",
+    wordWrapBreakBeforeCharacters: "{([+",
+    wordWrapBreakObtrusiveCharacters: ".",
+    wordWrapColumn: 80,
+    wordWrapMinified: true,
+    wrappingIndent: "none",
+  };
 
   useEffect(() => {
     localStorage.setItem("editorCode", code);
@@ -86,13 +97,30 @@ function OnlineEditorComponent() {
     };
   }, []);
 
-
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
 
   const handleSave = () => {
     localStorage.setItem("editorCode", code);
+  };
+
+  const handlePushCode = async () => {
+    try {
+      let filename = count;
+      setcount(count + 1);
+      const response = await axios.put(
+        `test_repo/blob/main/newFile1`,
+        {
+          message: "New upload from website",
+          content: btoa(code),
+        }
+      );
+      toast.success("Code Pushed Successfully");
+    } catch (err) {
+      console.log(err);
+      toast.error("Error Pushing Code");
+    }
   };
 
   const handleEditorPaste = (e) => {
@@ -106,14 +134,13 @@ function OnlineEditorComponent() {
   const handleRunCode = () => {
     const parser = new DOMParser();
     const out = parser.parseFromString(code, "text/html");
-    const div = document.getElementById('outout')
-    div.innerHTML = out.documentElement.innerHTML
-    
-    
+    const div = document.getElementById("outout");
+    div.innerHTML = out.documentElement.innerHTML;
   };
 
-
   return (
+    <>
+    <TopBar/>
     <div className="online-editor">
       <div className="left-side">
         {/* Questions or doc */}
@@ -142,9 +169,7 @@ function OnlineEditorComponent() {
         <div className="titlebar">
           <div className="language-input">
             <select value={selectedLanguage} onChange={handleLanguageChange}>
-              <option value="javascript">
-                JavaScript
-              </option>
+              <option value="javascript">JavaScript</option>
               <option value="css">CSS</option>
               <option value="html">HTML</option>
               <option value="python">Python</option>
@@ -159,6 +184,9 @@ function OnlineEditorComponent() {
           <button className="run-button" onClick={handleRunCode}>
             Run Code
           </button>
+          <button className="run-button" onClick={handlePushCode}>
+            Push Code
+          </button>
           {/* Add other options here */}
         </div>
         <div className="editor-container" onContextMenu={handleContextMenu}>
@@ -172,10 +200,11 @@ function OnlineEditorComponent() {
             language={selectedLanguage}
             value={code}
             onChange={(e) => setCode(e)}
-          />
+            />
         </div>
       </div>
     </div>
+            </>
   );
 }
 

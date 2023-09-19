@@ -1,0 +1,34 @@
+/* CSS for ChatbotWidget.js */
+.chatbot-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it's above other page elements */
+  }
+  
+  .chatbot-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chatbot-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .chatbot-interface {
+    /* Style your chat interface here */
+    /* This can include chat messages, input fields, etc. */
+    /* Make sure to position it appropriately within the widget */
+  }
+  
+  .chatbot-widget.open .chatbot-button {
+    display: none; /* Hide the button when the chat interface is open */
+  }
+  
