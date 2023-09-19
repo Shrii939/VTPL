@@ -8,6 +8,7 @@ import Image from "../assets/laptop.png";
 import { AiOutlineEdit, AiOutlineClose } from "react-icons/ai";
 import { FiTrash2 } from "react-icons/fi";
 
+import 'react-chatbot-kit/build/main.css'
 import { IconContext } from "react-icons";
 
 import {
@@ -23,8 +24,12 @@ import {
 } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";
 import { toast } from "react-toastify";
+import ChatbotWidget from "./chatbot/ChatbotWidget.jsx";
+
 
 function HomeComponent() {
+
+
   const [isAdded, setIsAdded] = useState(false);
   const [task, setTask] = useState([]);
 
@@ -154,7 +159,7 @@ function HomeComponent() {
 
   return (
     <div>
-      <Topbar />
+  
       <div className="banner">
         <div className="banner-content">
           <h1>Welcome to MyCourse</h1>
@@ -301,6 +306,9 @@ function HomeComponent() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="App">
+                <ChatbotWidget />
       </div>
     </div>
   );
